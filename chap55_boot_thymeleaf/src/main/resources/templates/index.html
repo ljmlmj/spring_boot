@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>Hello Everyone</h1>
+	<br><br>
+	현재시간 : <p th:text="${date}">current date</p>
+	<p th:if="${num1 < num2}">첫번째 수가 두번째 숫자보다 적다.</p>
+	<p th:if="${num1 > num2}">첫번째 수가 두번째 숫자보다 크다.</p>
+	
+	<!-- if else -->
+	<p th:if="${#strings.isEmpty(name)}">이름 없음</p>
+	<p th:if="${#strings.isEmpty(name)}" th:text="${name}">이름 있음</p>
+
+	<!-- 컨트롤러에서 이미지 이름 받아서 출력 -->
+	<div>
+		<img th:src="@{'/image/' + ${imgName}}" alt="Dynamic Image">
+	</div>
+	<br>
+	
+	<!-- 반복문 출력 -->
+	<h2>User List:</h2>
+	<div th:if="${userList != null}">
+		<table border="1">
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Age</th>
+			</tr>
+			<tr th:each="user : ${userList}">
+				<td th:text="${user.id}"></td>
+				<td th:text="${user.name}"></td>
+				<td th:text="${user.age}"></td>
+			</tr>
+		</table>
+	</div>
+	<div th:unless="${userList != null}">
+		<p>사용자 정보가 없습니다.</p>
+	</div>
+	<br>
+	
+	<h3>세션을 통한 사용자 정보 확인</h3>
+	<div th:if="${session.user != null}">
+		<p>로그인 사용자</p>
+		<p>사용자 ID: <span th:text="${session.user.id}"></span></p>
+		<p>사용자 Name: <span th:text="${session.user.name}"></span></p>
+		<p>사용자 Age: <span th:text="${session.user.age}"></span></p>
+	</div>
+	<div th:unless="${session.user != null}">
+		<p>세션에 사용자 정보가 없습니다.(로그인 안 한 사용자)</p>
+	</div>
+	
+	<br>
+	<table border="1">
+		<tr>
+			<td>상품ID</td>
+			<td th:text="${product.productId}">
+		</tr>
+		<tr>
+			<td>상품Name</td>
+			<td th:text="${product.name}"></td>
+		</tr>
+		<tr>
+			<td>상품Price</td>
+			<td th:text="${#numbers.formatInteger(product.price, 3, 'COMMA')}"></td>
+		</tr>
+		<tr>
+			<td>상품ReceiptDate</td>
+			<td th:text="${#temporals.format(product.ReceiptDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+		</tr>
+	</table>
+	<br>
+	<input type="text" name="productId" th:value="${product.name}">
+	<br>
+	<h3>애국가</h3>
+	<p> 동해물과 백두산이 마르고 닳도록</p>
+	
+</body>
+</html>
