@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+	<!-- 매퍼XML : Employees 에 대한 모든 쿼리문 보관 -->
+	<mapper namespace="com.javalab.board.dao.EmployeeDao">
+
+	 <select id="getEmployeesList" resultType="com.javalab.board.vo.Employees">
+		SELECT EMPLOYEE_ID, 
+			FIRST_NAME, 
+			LAST_NAME, 
+			EMAIL, 
+			PHONE_NUMBER, 
+			HIRE_DATE, 
+			JOB_ID, 
+			SALARY, 
+			COMMISSION_PCT, 
+			MANAGER_ID, 
+			DEPARTMENT_ID 
+		FROM EMPLOYEES 
+		ORDER BY EMPLOYEE_ID
+	 </select>
+	 
+	 <select id="getMember" parameterType="int" resultType="com.javalab.board.vo.Employees">
+	 	SELECT EMPLOYEE_ID, 
+			FIRST_NAME, 
+			LAST_NAME, 
+			EMAIL, 
+			PHONE_NUMBER, 
+			HIRE_DATE, 
+			JOB_ID, 
+			SALARY, 
+			COMMISSION_PCT, 
+			MANAGER_ID, 
+			DEPARTMENT_ID  
+	 	FROM EMPLOYEES 
+ 		WHERE EMPLOYEE_ID = #{param1}		 
+	 </select>
+
+</mapper>
